@@ -2,7 +2,6 @@ from tkinter import *
 import tkinter.messagebox as mb
 import numpy as np
 from matplotlib import pyplot as plt
-from math import pow
 
 window = Tk()
 window.title("Метод половинного деления")
@@ -16,6 +15,7 @@ def is_valid(value):
 def count_click():
     if check_good_input():
         print_equation()
+        count_root()
     else:
         mb.showerror("Неверно введены значения", "Пожалуйста, вводите корректные числовые значения")
 
@@ -76,7 +76,6 @@ def print_equation():
 
         equa += el + " "
     finalEquation.config(text=equa)
-    count_root()
 
 
 def count_root():
@@ -156,19 +155,27 @@ def show_graph():
     if not check_input():
         mb.showerror("Убедитесь, что значения введены верно")
         return
-    count_click()
-    x = np.linspace(start_graph, end_graph, 100)
-    y = np.array([np.sum(np.array([coefs[i] * (j ** i) for i in range(len(coefs))])) for j in x])
+    try:
+        coefs.clear()
+        for i in inputCoefs.get().split():
+            coefs.append(int(i))
 
-    plt.plot(x, y)
+        coefs.reverse()
 
-    plt.axhline(y=0, color='k')
-    plt.axvline(x=0, color='k')
+        x = np.linspace(start_graph, end_graph, 100)
+        y = np.array([np.sum(np.array([coefs[i] * (j ** i) for i in range(len(coefs))])) for j in x])
 
-    plt.title(finalEquation.cget("text"))
-    plt.grid(visible=True)
+        plt.plot(x, y)
 
-    plt.show()
+        plt.axhline(y=0, color='k')
+        plt.axvline(x=0, color='k')
+
+        plt.title(finalEquation.cget("text"))
+        plt.grid(visible=True)
+
+        plt.show()
+    except:
+        mb.showerror("Убедитесь, что значения введены верно")
 
 
 ########################## ELEMENTS
