@@ -3,21 +3,12 @@ import tkinter.messagebox as mb
 import numpy as np
 from matplotlib import pyplot as plt
 
+
 window = Tk()
 window.title("Метод половинного деления")
 window.geometry("800x500")
 
 
-def is_valid(value):  # checking characters for input (coefficients)
-    return value[-1] in "0123456789- "
-
-
-def count_click():  # processing of clicking on the calculation button
-    if check_good_input():
-        print_equation()
-        count_root()
-    else:
-        mb.showerror("Неверно введены значения", "Пожалуйста, вводите корректные числовые значения")
 
 
 coefs = []
@@ -120,20 +111,6 @@ def count_root():  # method for counting roots
 ########################## CHECKS FOR X AND ACCURACY
 
 
-def check_x(value):  # checking characters for input (X coordinates)
-    return value[-1] in "-1234567890" and len(value) < 5
-
-
-check2 = (window.register(check_x), "%P")
-
-
-def check_accuracy(value): # checking characters for input (accuracy)
-    return value[-1] in "-1234567890."
-
-
-check3 = (window.register(check_accuracy), "%P")
-
-
 start_graph = 0
 end_graph = 0
 
@@ -178,70 +155,5 @@ def show_graph():  # plotting
         mb.showerror("Убедитесь, что значения введены верно")
 
 
-##########################  START
-
-check = (window.register(is_valid), "%P")
-
-label1 = Label(window, text="Вводите коэффициенты через пробел", font=("Calibri", 20), fg="white")
-label1.grid(column=0, row=0, columnspan=5)
-
-inputCoefs = Entry(window, font=("Calibri", 26), validate="key", validatecommand=check, width=40)
-inputCoefs.grid(column=0, row=1, columnspan=5)
-
-label2 = Label(window, text="Ваше уравнение:", font=("Calibri", 22), fg="white")
-label2.grid(column=0, row=3, pady=30, columnspan=5)
-
-finalEquation = Label(window, font=("Calibri", 30), fg="gray")
-finalEquation.grid(column=0, row=4, columnspan=5)
-
-
-###########################  ROOTS
-
-label3 = Label(window, text="X старт (интервал):", font=("Calibri", 20), fg="white")
-label3.grid(column=0, row=6, pady=5, padx=10, sticky=W)
-
-x_start_root = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check2, width=7)
-x_start_root.grid(column=1, row=6, sticky=W)
-
-label4 = Label(window, text="Х конечное (интервал):", font=("Calibri", 20), fg="white")
-label4.grid(column=0, row=7, padx=10, sticky=W)
-
-x_end_root = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check2, width=7)
-x_end_root.grid(column=1, row=7, sticky=W)
-
-label4 = Label(window, text="Заданная точность:", font=("Calibri", 20), fg="white")
-label4.grid(column=0, row=8, padx=10, sticky=W)
-
-accuracy_in = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check3, width=7)
-accuracy_in.grid(column=1, row=8, sticky=W)
-
-countButton = Button(text="Рассчитать корни", width=16, font=("Calibri", 16), command=count_click)
-countButton.grid(column=0, row=9, padx=25, pady=15, columnspan=2)
-
-
-
-############################  PLOTTING
-
-label3 = Label(window, text="X старт (график):", font=("Calibri", 20), fg="white")
-label3.grid(column=3, row=6, pady=5, sticky=W)
-
-x_start_graph = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check2, width=7)
-x_start_graph.grid(column=4, row=6, sticky=W)
-
-label4 = Label(window, text="Х конечное (график):", font=("Calibri", 20), fg="white")
-label4.grid(column=3, row=7, pady=5, sticky=W)
-
-x_end_graph = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check2, width=7)
-x_end_graph.grid(column=4, row=7, sticky=W)
-
-showGraph = Button(text="Построить график", width=16, font=("Calibri", 16), command=show_graph)
-showGraph.grid(column=3, columnspan=2, row=8, pady=15)
-
-l = Label(width=10)
-l.grid(column=2, row=5)
-
-
-result = Label(window, font=("Calibri", 20), fg="white")
-result.grid(column=0, row=10, columnspan=5, padx=10, sticky=W)
 
 window.mainloop()
