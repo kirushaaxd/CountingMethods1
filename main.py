@@ -8,11 +8,11 @@ window.title("Метод половинного деления")
 window.geometry("800x500")
 
 
-def is_valid(value):
+def is_valid(value):  # checking characters for input (coefficients)
     return value[-1] in "0123456789- "
 
 
-def count_click():
+def count_click():  # processing of clicking on the calculation button
     if check_good_input():
         print_equation()
         count_root()
@@ -26,7 +26,7 @@ end_root = 0
 accuracy = 0
 
 
-def check_good_input():
+def check_good_input():  # checking that all parameters for root calculation are entered and correct
     try:
         global start_root, end_root, accuracy
         coefs.clear()
@@ -49,7 +49,7 @@ def check_good_input():
 coefs_dict = {}
 
 
-def print_equation():
+def print_equation():  # printing equation
     equa = "y = "
     for k, v in coefs_dict.items():
         el = ""
@@ -78,7 +78,7 @@ def print_equation():
     finalEquation.config(text=equa)
 
 
-def count_root():
+def count_root():  # method for counting roots
     x_start = start_root
     x_end = end_root
 
@@ -99,7 +99,7 @@ def count_root():
         mb.showwarning("Корень найден", f"Значение корня = {x_end}")
         return
 
-    while x_end - x_start > accuracy:
+    while x_end - x_start > accuracy / 2:  # cycle for the method of half division up to the specified accuracy
         x_mid = (x_start + x_end) / 2
         x_mid_num = 0
         for i in range(len(coefs)):
@@ -117,18 +117,17 @@ def count_root():
                           f"при точности {accuracy} = {x_end}")
 
 
-
 ########################## CHECKS FOR X AND ACCURACY
 
 
-def check_x(value):
+def check_x(value):  # checking characters for input (X coordinates)
     return value[-1] in "-1234567890" and len(value) < 5
 
 
 check2 = (window.register(check_x), "%P")
 
 
-def check_accuracy(value):
+def check_accuracy(value): # checking characters for input (accuracy)
     return value[-1] in "-1234567890."
 
 
@@ -139,19 +138,20 @@ start_graph = 0
 end_graph = 0
 
 
-def check_input():
+def check_input():  # checking that all parameters for plotting are entered and correct
     try:
         global start_graph, end_graph
         start_graph = int(x_start_graph.get())
         end_graph = int(x_end_graph.get())
         return True
     except:
+        mb.showwarning("!!!", "Убедитесь, что все значения введены верно")
         return False
 
 
 ######################### GRAPH
 
-def show_graph():
+def show_graph():  # plotting
     if not check_input():
         mb.showerror("Убедитесь, что значения введены верно")
         return
@@ -178,7 +178,7 @@ def show_graph():
         mb.showerror("Убедитесь, что значения введены верно")
 
 
-########################## ELEMENTS
+##########################  START
 
 check = (window.register(is_valid), "%P")
 
@@ -195,7 +195,7 @@ finalEquation = Label(window, font=("Calibri", 30), fg="gray")
 finalEquation.grid(column=0, row=4, columnspan=5)
 
 
-########################### ROOTS
+###########################  ROOTS
 
 label3 = Label(window, text="X старт (интервал):", font=("Calibri", 20), fg="white")
 label3.grid(column=0, row=6, pady=5, padx=10, sticky=W)
@@ -220,7 +220,7 @@ countButton.grid(column=0, row=9, padx=25, pady=15, columnspan=2)
 
 
 
-############################ GRAPH
+############################  PLOTTING
 
 label3 = Label(window, text="X старт (график):", font=("Calibri", 20), fg="white")
 label3.grid(column=3, row=6, pady=5, sticky=W)
