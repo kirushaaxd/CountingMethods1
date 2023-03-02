@@ -120,14 +120,6 @@ def count_root():
 
 ########################## CHECKS FOR X AND ACCURACY
 
-
-def check_x(value):
-    return value[-1] in "-1234567890" and len(value) < 5
-
-
-check2 = (window.register(check_x), "%P")
-
-
 def check_accuracy(value):
     return value[-1] in "-1234567890."
 
@@ -142,8 +134,8 @@ end_graph = 0
 def check_input():
     try:
         global start_graph, end_graph
-        start_graph = int(x_start_graph.get())
-        end_graph = int(x_end_graph.get())
+        start_graph = float(x_start_graph.get())
+        end_graph = float(x_end_graph.get())
         return True
     except:
         return False
@@ -200,13 +192,13 @@ finalEquation.grid(column=0, row=4, columnspan=5)
 label3 = Label(window, text="X старт (интервал):", font=("Calibri", 20), fg="white")
 label3.grid(column=0, row=6, pady=5, padx=10, sticky=W)
 
-x_start_root = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check2, width=7)
+x_start_root = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check3, width=7)
 x_start_root.grid(column=1, row=6, sticky=W)
 
 label4 = Label(window, text="Х конечное (интервал):", font=("Calibri", 20), fg="white")
 label4.grid(column=0, row=7, padx=10, sticky=W)
 
-x_end_root = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check2, width=7)
+x_end_root = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check3, width=7)
 x_end_root.grid(column=1, row=7, sticky=W)
 
 label4 = Label(window, text="Заданная точность:", font=("Calibri", 20), fg="white")
@@ -225,13 +217,13 @@ countButton.grid(column=0, row=9, padx=25, pady=15, columnspan=2)
 label3 = Label(window, text="X старт (график):", font=("Calibri", 20), fg="white")
 label3.grid(column=3, row=6, pady=5, sticky=W)
 
-x_start_graph = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check2, width=7)
+x_start_graph = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check3, width=7)
 x_start_graph.grid(column=4, row=6, sticky=W)
 
 label4 = Label(window, text="Х конечное (график):", font=("Calibri", 20), fg="white")
 label4.grid(column=3, row=7, pady=5, sticky=W)
 
-x_end_graph = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check2, width=7)
+x_end_graph = Entry(window, font=("Calibri", 23), validate="key", validatecommand=check3, width=7)
 x_end_graph.grid(column=4, row=7, sticky=W)
 
 showGraph = Button(text="Построить график", width=16, font=("Calibri", 16), command=show_graph)
